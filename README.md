@@ -1,4 +1,4 @@
-# AI Knowledge Assistant — Bootstrap API (Módulo 0)
+# AssistantAI — Bootstrap API (Módulo 0)
 
 Primer incremento funcional: una API asíncrona con FastAPI, validada con
 Pydantic y probada con pytest. **No integra ningún LLM** (el proveedor es
