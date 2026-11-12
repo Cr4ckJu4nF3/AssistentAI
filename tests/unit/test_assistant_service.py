@@ -1,21 +1,42 @@
-from app.core.config import PROVIDER_NAME
-from app.services.assistant_service import BootstrapAssistantService
+
+import pytest
+
+from app.services.assistant_service import (
+    AssistantService,
+)
 
 
-async def test_service_answers_known_question():
-    """T-01: el servicio responde a una pregunta conocida."""
-    service = BootstrapAssistantService()
+class FakeProvider:
 
-    response = await service.answer("¿Qué es FastAPI?")
+    async def generate(
+        self,
+        messages,
+        temperature=0.3,
+        top_p=1,
+        max_tokens=300,
+    ):
+        assert (
+            messages[1]["content"]
+            == "¿Qué es FastAPI?"
+        )
 
-    assert "FastAPI" in response.answer
-    assert response.provider == PROVIDER_NAME
+        return (
+            "Es un framework de APIs en Python."
+        )
 
 
-async def test_service_returns_default_for_unknown_question():
-    service = BootstrapAssistantService()
+@pytest.mark.asyncio
+async def test_returns_answer():
 
-    response = await service.answer("Pregunta sin tema conocido")
+    service = AssistantService(
+        FakeProvider()
+    )
 
-    assert "operativa" in response.answer
-    assert response.provider == PROVIDER_NAME
+    response = await service.ask(
+        "¿Qué es FastAPI?"
+    )
+
+    assert (
+        "framework"
+        in response.lower()
+    )

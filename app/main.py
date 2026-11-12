@@ -1,20 +1,23 @@
+
 from fastapi import FastAPI
 
-from app.api.routes.chat import router as chat_router
-from app.api.routes.health import router as health_router
-from app.api.routes.info import router as info_router
-from app.core.config import APP_NAME, APP_VERSION
-
-
-app = FastAPI(
-    title=APP_NAME,
-    description=(
-        "API evolutiva para el curso "
-        "de Ingeniería de Sistemas de IA."
-    ),
-    version=APP_VERSION,
+from app.api.chat import (
+    router as chat_router,
 )
 
-app.include_router(health_router)
+from app.api.agent import (
+    router as agent_router,
+)
+
+app = FastAPI(
+    title="AI Knowledge Assistant",
+    description="API educativa con integración LLM",
+    version="1.0.0",
+)
+
 app.include_router(chat_router)
-app.include_router(info_router)
+app.include_router(agent_router)
+
+@app.get("/health")
+async def health():
+    return {"status": "ok"}

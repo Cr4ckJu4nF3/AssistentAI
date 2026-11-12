@@ -1,29 +1,23 @@
-# Entornos virtuales
-.venv/
-venv/
-env/
-
-# Secretos
-.env
-.env.*
-!.env.example
-
-# Python
 __pycache__/
 *.py[cod]
-*.egg-info/
-build/
-dist/
 
-# Caches y herramientas
+#virtual environment
+venv/
+.venv/
+
+#test
 .pytest_cache/
-.mypy_cache/
-.ruff_cache/
 .coverage
-htmlcov/
 
-# IDE / SO
+
+#eviroment
+
+.env
+.env.*
+
+#IDE
 .vscode/
 .idea/
-.DS_Store
-Thumbs.db
+
+ai_knowledge_assistant.egg-info/
+./ai_knowledge_assistant.egg-info
